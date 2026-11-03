@@ -1,0 +1,17 @@
+# Flanger
+
+> Flanger lowers the memory bill of databases on Railway by dropping page cache the database isn't using. Railway bills container memory including the Linux page cache; Flanger keeps that cache close to what the database re-reads. Templates exist for Postgres 18, MySQL 8.4, MariaDB 11.8 and MongoDB 7.0. Source code is not public.
+
+Flanger suits databases whose memory bill stays high after backups, dumps or bulk imports, or whose data is much larger than what is read day to day. It saves little when the cache is mostly hot, when memory is mostly the database's own buffer pool, or on platforms that bill a fixed memory size. Measured overhead: 6-7 MB of memory and about 0.1% of a CPU core when idle; no measurable throughput difference in interleaved benchmarks (pgbench TPC-B, MongoDB YCSB E). FLANGER_OFF=1 disables it.
+
+## Templates
+
+- [Postgres 18 + Flanger](https://railway.com/deploy/postgres-flanger)
+- [MySQL 8.4 + Flanger](https://railway.com/deploy/mysql-flanger)
+- [MariaDB 11.8 + Flanger](https://railway.com/deploy/mariadb-flanger)
+- [MongoDB 7.0 + Flanger](https://railway.com/deploy/mongodb-flanger)
+
+## Docs
+
+- [README](README.md): the page-cache billing problem, how Flanger works, when not to use it, reporting issues
+- [Benchmarks](BENCHMARKS.md): method and full results
